@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_REPO_NAME: nginx-cicd-demo
+    IMAGE_TAG: latest
+    AWS_REGION: ap-south-1
+    ACCOUNT_ID: 123456789
+    EC2_USER: ubuntu
+    EC2_HOST: 13.233.xxx.xxx
+
+phases:
+
+  pre_build:
+    commands:
+      - echo Logging in to ECR
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo Building Docker Image
+      - docker build -t $IMAGE_REPO_NAME .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+
+  post_build:
+    commands:
+      - echo Pushing Image to ECR
+      - docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+
+      - echo Deploying to EC2
+
+      - |
+        ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST "
+          docker stop nginx-app || true &&
+          docker rm nginx-app || true &&
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com &&
+          docker pull $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG &&
+          docker run -d -p 80:80 --name nginx-app $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+        "
