@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MY APP NGINX Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 15%;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-weight: normal;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .badge {
+            background: #00c6ff;
+            color: black;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🚀 CI/CD Pipeline Successful!</h1>
+        <h2>Deployed using AWS CodePipeline + CodeBuild</h2>
+
+        <div class="info-box">
+            <p class="badge">Docker + ECR + EC2</p>
+            <p>This NGINX application is automatically deployed.</p>
+            <p>Every Git push triggers a new deployment.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        DevOps Demo | Containerized using Docker | Hosted on EC2
+    </div>
+
+</body>
+</html>
