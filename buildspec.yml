@@ -4,10 +4,10 @@ env:
   variables:
     IMAGE_REPO_NAME: nginx-cicd-demo
     IMAGE_TAG: latest
-    AWS_REGION: ap-south-1
-    ACCOUNT_ID: 123456789
+    AWS_REGION: us-east-1
+    ACCOUNT_ID: 650781539051
     EC2_USER: ubuntu
-    EC2_HOST: 13.233.xxx.xxx
+    EC2_HOST: 23.22.239.245
 
 phases:
 
