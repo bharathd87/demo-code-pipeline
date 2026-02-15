@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_NAME: "prod/node-todo" 
-    REGISTRY_URL: "924358636787.dkr.ecr.us-east-1.amazonaws.com"
+    IMAGE_NAME: "demo/myapp" 
+    REGISTRY_URL: "650781539051.dkr.ecr.us-east-1.amazonaws.com"
 
 phases:
   pre_build:
@@ -14,13 +14,11 @@ phases:
   build:
     commands:
       - echo "--------------------------------- docker build started ---------------------------------"
-      - IMAGE_TAG=${CODEBUILD_BUILD_NUMBER}
+      - IMAGE_TAG=${latest}
       - docker build -t ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG} .
-      - docker tag ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY_URL}/${IMAGE_NAME}:latest
       - echo "--------------------------------- docker build ended ---------------------------------"
   post_build:
     commands:
       - echo "--------------------------------- pushing to registry ---------------------------------"
       - docker push ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG}
-      - docker push ${REGISTRY_URL}/${IMAGE_NAME}:latest
       - echo "--------------------------------- pushed to registery ---------------------------------"
