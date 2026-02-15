@@ -1,0 +1,13 @@
+apt update -y
+apt install -y ruby wget
+
+cd /home/ubuntu
+
+wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+chmod +x install
+./install auto
+
+sleep 30
+
+systemctl restart codedeploy-agent
+systemctl enable codedeploy-agent
