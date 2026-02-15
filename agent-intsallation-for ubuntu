@@ -11,3 +11,7 @@ sleep 30
 
 systemctl restart codedeploy-agent
 systemctl enable codedeploy-agent
+
+sudo systemctl start codedeploy-agent
+sudo systemctl status codedeploy-agent
+
