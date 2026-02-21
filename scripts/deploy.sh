@@ -11,4 +11,4 @@ echo "Pulling new image..."
 docker pull $IMAGE
 
 echo "Running container..."
-docker run -d --name myapp -p 80:8080 $IMAGE
+docker run -d --name myapp -p 80:80 $IMAGE
