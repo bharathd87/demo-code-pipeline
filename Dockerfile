@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine3.23-perl
+FROM nginx
 
 COPY index.html /usr/share/nginx/html/index.html
 
